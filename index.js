@@ -8,13 +8,13 @@ const app = express()
 
 app.use(express.json())
 // let books = [] 
-const url = 'mongodb+srv://superadmin:12345678910@cluster0.wm519.mongodb.net/amazbooks?retryWrites=true&w=majority'
+const url = 'mongodb+srv://superadmin:12345678910@cluster0.wm519.mongodb.net/mazbooks?retryWrites=true&w=majority'
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true })
 let db,bookscollection
 
 async function connect(){
     await client.connect()
-    db = client.db('amazbooks')
+    db = client.db('mazbooks')
     bookscollection = db.collection('books')
 }
 connect()
@@ -69,3 +69,5 @@ app.post('/books', async(req, res) => {
 })
 const port = 3000
 app.listen(port, () => console.log(`Server started again at ${port}`))
+
+
