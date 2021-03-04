@@ -7,25 +7,38 @@ const express = require('express')
 const app = express()
 
 app.use(express.json())
-let books = [] 
+// let books = [] 
+const url = 'mongodb+srv://superadmin:12345678910@cluster0.wm519.mongodb.net/amazbooks?retryWrites=true&w=majority'
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true })
+let db,bookscollection
+
+async function connect(){
+    await client.connect()
+    db = client.db('amazbooks')
+    bookscollection = db.collection('books')
+}
+connect()
 
 app.get('/books', (req, res) => {
     //input
     //process
+    const cursor = await bookscollection.find({})
+    const result = await cursor.toArray()
     //output
     res.status(200).json(books)
 })
 
 
-app.get('/books/:id', (req, res) =>{
+app.get('/books/:id', async (req, res) =>{
     //input
     let id = req.params.id
-    let book = {} 
-    book = books[id]
+    // let book = {} 
+    // book = books[id]
+    const book = await bookscollection.findOne({ _id: ObjectId(id)})
 
     res.status(200).json(book)
 })
-app.post('/books', (req, res) => { 
+app.post('/books', async(req, res) => { 
 
     //input
     let newtitle = req.body.title
@@ -42,11 +55,11 @@ app.post('/books', (req, res) => {
         imageurl: newimageurl,
     }
     let bookID = 0
-
+    const result = await bookscollection.insertOne(newBook)
     //process*
-
-   books.push(newBook) 
-   bookID = books.length - 1 
+    bookID = result.insertedId
+//    books.push(newBook) 
+//    bookID = books.length - 1 
     //output*
 
     res.status(201).json(bookID)
