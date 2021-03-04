@@ -20,7 +20,7 @@ async function connect(){
 connect()
 
 ///Commit #5: update GET /books/:id to retrieve data from MongoDB
-app.get('/books', (req, res) => {
+app.get('/books',async (req, res) => {
     //input
     //process
     const cursor = await bookscollection.find({})
