@@ -9,22 +9,22 @@ const app = express()
 app.use(express.json())
 let books = [] 
 
-app.get('/books', (req, res) => {
-    //input
-    //process
-    //output
-    res.status(200).json(books)
-})
+// app.get('/books', (req, res) => {
+//     //input
+//     //process
+//     //output
+//     res.status(200).json(books)
+// })
 
 
-app.get('/books/:id', (req, res) =>{
-    //input
-    let id = req.params.id
-    let book = {} 
-    book = books[id]
+// app.get('/books/:id', (req, res) =>{
+//     //input
+//     let id = req.params.id
+//     let book = {} 
+//     book = books[id]
 
-    res.status(200).json(book)
-})
+//     res.status(200).json(book)
+// })
 app.post('/books', (req, res) => { 
 
     //input
