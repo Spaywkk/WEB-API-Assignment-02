@@ -19,6 +19,7 @@ async function connect(){
 }
 connect()
 
+///Commit #5: update GET /books/:id to retrieve data from MongoDB
 app.get('/books', (req, res) => {
     //input
     //process
@@ -38,6 +39,8 @@ app.get('/books/:id', async (req, res) =>{
 
     res.status(200).json(book)
 })
+
+
 app.post('/books', async(req, res) => { 
 
     //input
